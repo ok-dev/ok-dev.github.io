@@ -21,36 +21,40 @@
             let currentUrl = window.location.href;
             let newUrl;
 
-            // Determine the base URL without the page name
-            let baseUrl = currentUrl.substring(0, currentUrl.lastIndexOf('/') + 1);
-
             // If the selected language is English
             if (lang === 'en') {
                 // If the current page is already in English, keep the URL as is
                 if (currentUrl.includes("/en/")) {
                     return;
                 }
-                // Append "/en/" for English
-                newUrl = baseUrl + "en/" + getPageName(currentUrl);
+                // If the current page is in German, add "/en/" to the URL
+                newUrl = addLanguageSubdirectory(currentUrl, 'en');
             } else if (lang === 'de') { // If the selected language is German
                 // If the current page is already in German, keep the URL as is
                 if (!currentUrl.includes("/en/")) {
                     return;
                 }
-                // Remove "/en/" for German
-                newUrl = baseUrl + getPageName(currentUrl);
+                // If the current page is in English, remove "/en/" from the URL
+                newUrl = removeLanguageSubdirectory(currentUrl);
             }
 
             // Redirect to the new URL
             window.location.href = newUrl;
         }
 
-        function getPageName(url) {
-            // Extracts the page name from the URL
-            return url.substring(url.lastIndexOf('/') + 1);
+        function addLanguageSubdirectory(url, lang) {
+            // Add the language subdirectory to the URL
+            let baseUrl = url.substring(0, url.lastIndexOf('/') + 1);
+            let pageName = url.substring(url.lastIndexOf('/') + 1);
+            return baseUrl + lang + '/' + pageName;
+        }
+
+        function removeLanguageSubdirectory(url) {
+            // Remove the language subdirectory from the URL
+            let baseUrl = url.substring(0, url.indexOf('/en/') + 1);
+            let pageName = url.substring(url.indexOf('/en/') + 4);
+            return baseUrl + pageName;
         }
     </script>
 </body>
 </html>
-
-
