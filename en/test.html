@@ -1,17 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html lang="de">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>My Website</title>
-    <link rel="stylesheet" href="./style.css">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
-  </head>
-  <body>
-    <main>
-        <h1>Testpage english</h1>  
-    </main>
-	<script src="index.js"></script>
-  </body>
+    <title>Language Switcher</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#" onclick="switchLanguage('en')">English</a></li>
+            <li><a href="#" onclick="switchLanguage('de')">Deutsch</a></li>
+        </ul>
+    </nav>
+    
+    
+    <p>English Text on Testpage</p>
+    
+    <script>
+        function switchLanguage(lang) {
+            let currentUrl = window.location.href;
+            let newUrl;
+
+            // If the selected language is English
+            if (lang === 'en') {
+                // Check if the current URL already contains the "/en/" subdirectory
+                if (currentUrl.includes("/en/")) {
+                    // English is already selected, so keep the URL as is
+                    return;
+                } else {
+                    // Append "/en/" for English
+                    newUrl = currentUrl + "en/";
+                }
+            } else if (lang === 'de') { // If the selected language is German
+                // Check if the current URL contains the "/en/" subdirectory
+                if (currentUrl.includes("/en/")) {
+                    // Replace "/en/" with "/" for German
+                    newUrl = currentUrl.replace("/en/", "/");
+                } else {
+                    // German is already selected, so keep the URL as is
+                    return;
+                }
+            }
+
+            // Redirect to the new URL
+            window.location.href = newUrl;
+        }
+    </script>
+</body>
 </html>
