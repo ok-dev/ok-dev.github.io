@@ -13,8 +13,8 @@
         </ul>
     </nav>
     
-    
-    <p>English Testpage</p>
+    <h1>Willkommen</h1>
+    <p>Dies ist ein einfaches Beispiel für einen Sprachumschalter.</p>
     
     <script>
         function switchLanguage(lang) {
@@ -26,23 +26,19 @@
 
             // If the selected language is English
             if (lang === 'en') {
-                // Check if the current URL already contains the "/en/" subdirectory
+                // If the current page is already in English, keep the URL as is
                 if (currentUrl.includes("/en/")) {
-                    // English is already selected, so keep the URL as is
                     return;
-                } else {
-                    // Append "/en/" for English
-                    newUrl = baseUrl + "en/" + getPageName(currentUrl);
                 }
+                // Append "/en/" for English
+                newUrl = baseUrl + "en/" + getPageName(currentUrl);
             } else if (lang === 'de') { // If the selected language is German
-                // Check if the current URL contains the "/en/" subdirectory
-                if (currentUrl.includes("/en/")) {
-                    // Replace "/en/" with "/" for German
-                    newUrl = baseUrl + getPageName(currentUrl);
-                } else {
-                    // German is already selected, so keep the URL as is
+                // If the current page is already in German, keep the URL as is
+                if (!currentUrl.includes("/en/")) {
                     return;
                 }
+                // Remove "/en/" for German
+                newUrl = baseUrl + getPageName(currentUrl);
             }
 
             // Redirect to the new URL
