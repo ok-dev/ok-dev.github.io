@@ -1,21 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Language Switcher</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <nav>
         <ul>
-            <li><a href="#" onclick="switchLanguage('en')">English</a></li>
-            <li><a href="#" onclick="switchLanguage('de')">Deutsch</a></li>
+            <li><a href="#" onclick="switchLanguage('en')" id="enLink">English</a></li>
+            <li><a href="#" onclick="switchLanguage('de')" id="deLink">Deutsch</a></li>
         </ul>
     </nav>
     
-    <h1>Welcome</h1>
-    <p>Indexpage english</p>
-    <a href="test.html">Testpage English</a>
+    <h1>Willkommen</h1>
+    <p>Dies ist ein einfaches Beispiel für einen Sprachumschalter.</p>
+    
     <script>
         function switchLanguage(lang) {
             let currentUrl = window.location.href;
@@ -29,6 +34,8 @@
                 }
                 // If the current page is in German, add "/en/" to the URL
                 newUrl = addLanguageSubdirectory(currentUrl, 'en');
+                document.getElementById('enLink').classList.add('hidden');
+                document.getElementById('deLink').classList.remove('hidden');
             } else if (lang === 'de') { // If the selected language is German
                 // If the current page is already in German, keep the URL as is
                 if (!currentUrl.includes("/en/")) {
@@ -36,6 +43,8 @@
                 }
                 // If the current page is in English, remove "/en/" from the URL
                 newUrl = removeLanguageSubdirectory(currentUrl);
+                document.getElementById('deLink').classList.add('hidden');
+                document.getElementById('enLink').classList.remove('hidden');
             }
 
             // Redirect to the new URL
