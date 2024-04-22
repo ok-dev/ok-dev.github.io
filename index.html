@@ -13,8 +13,8 @@
 <body>
     <nav>
         <ul>
-            <li><a href="#" onclick="switchLanguage('en')" id="enLink">English</a></li>
-            <li><a href="#" onclick="switchLanguage('de')" id="deLink">Deutsch</a></li>
+            <li id="enListItem"><a href="#" onclick="switchLanguage('en')">English</a></li>
+            <li id="deListItem"><a href="#" onclick="switchLanguage('de')">Deutsch</a></li>
         </ul>
     </nav>
     
@@ -34,8 +34,8 @@
                 }
                 // If the current page is in German, add "/en/" to the URL
                 newUrl = addLanguageSubdirectory(currentUrl, 'en');
-                document.getElementById('enLink').classList.add('hidden');
-                document.getElementById('deLink').classList.remove('hidden');
+                document.getElementById('enListItem').classList.add('hidden');
+                document.getElementById('deListItem').classList.remove('hidden');
             } else if (lang === 'de') { // If the selected language is German
                 // If the current page is already in German, keep the URL as is
                 if (!currentUrl.includes("/en/")) {
@@ -43,8 +43,8 @@
                 }
                 // If the current page is in English, remove "/en/" from the URL
                 newUrl = removeLanguageSubdirectory(currentUrl);
-                document.getElementById('deLink').classList.add('hidden');
-                document.getElementById('enLink').classList.remove('hidden');
+                document.getElementById('deListItem').classList.add('hidden');
+                document.getElementById('enListItem').classList.remove('hidden');
             }
 
             // Redirect to the new URL
