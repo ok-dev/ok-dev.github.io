@@ -13,44 +13,37 @@
         </ul>
     </nav>
     
-    <h1 id="welcome">Willkommen</h1>
-    <p id="content">Dies ist ein einfaches Beispiel für einen Sprachumschalter.</p>
+    <h1>Willkommen</h1>
+    <p>Dies ist ein einfaches Beispiel für einen Sprachumschalter.</p>
     
     <script>
         function switchLanguage(lang) {
-            // Define translation objects for each language
-            const translations = {
-                'en': {
-                    'welcome': 'Welcome',
-                    'content': 'This is a simple language switcher example.'
-                },
-                'de': {
-                    'welcome': 'Willkommen',
-                    'content': 'Dies ist ein einfaches Beispiel für einen Sprachumschalter.'
-                }
-                // Add more languages and translations as needed
-            };
+            let currentUrl = window.location.href;
+            let newUrl;
 
-            // Construct the URL for the selected language
-            let newUrl = '';
-
+            // If the selected language is English
             if (lang === 'en') {
-                newUrl = 'https://ok-dev.github.io/en/';
-            } else if (lang === 'de') {
-                newUrl = 'https://ok-dev.github.io/';
+                // Check if the current URL already contains the "/en/" subdirectory
+                if (currentUrl.includes("/en/")) {
+                    // English is already selected, so keep the URL as is
+                    return;
+                } else {
+                    // Append "/en/" for English
+                    newUrl = currentUrl + "en/";
+                }
+            } else if (lang === 'de') { // If the selected language is German
+                // Check if the current URL contains the "/en/" subdirectory
+                if (currentUrl.includes("/en/")) {
+                    // Replace "/en/" with "/" for German
+                    newUrl = currentUrl.replace("/en/", "/");
+                } else {
+                    // German is already selected, so keep the URL as is
+                    return;
+                }
             }
 
             // Redirect to the new URL
             window.location.href = newUrl;
-
-            // Optionally, update text content with translations for the selected language
-            const welcomeElement = document.getElementById('welcome');
-            const contentElement = document.getElementById('content');
-
-            if (translations.hasOwnProperty(lang)) {
-                welcomeElement.textContent = translations[lang]['welcome'];
-                contentElement.textContent = translations[lang]['content'];
-            }
         }
     </script>
 </body>
