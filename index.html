@@ -1,17 +1,57 @@
 <!DOCTYPE html>
 <html lang="de">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>My Website</title>
-    <link rel="stylesheet" href="./style.css">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
-  </head>
-  <body>
-    <main>
-        <h1>Hallo Deutsch</h1>  
-    </main>
-	<script src="index.js"></script>
-  </body>
+    <title>Language Switcher</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#" onclick="switchLanguage('en')">English</a></li>
+            <li><a href="#" onclick="switchLanguage('de')">Deutsch</a></li>
+        </ul>
+    </nav>
+    
+    <h1 id="welcome">Willkommen</h1>
+    <p id="content">Dies ist ein einfaches Beispiel für einen Sprachumschalter.</p>
+    
+    <script>
+        function switchLanguage(lang) {
+            // Define translation objects for each language
+            const translations = {
+                'en': {
+                    'welcome': 'Welcome',
+                    'content': 'This is a simple language switcher example.'
+                },
+                'de': {
+                    'welcome': 'Willkommen',
+                    'content': 'Dies ist ein einfaches Beispiel für einen Sprachumschalter.'
+                }
+                // Add more languages and translations as needed
+            };
+
+            // Construct the URL for the selected language
+            let newUrl = '';
+
+            if (lang === 'en') {
+                newUrl = 'https://ok-dev.github.io/en/';
+            } else if (lang === 'de') {
+                newUrl = 'https://ok-dev.github.io/';
+            }
+
+            // Redirect to the new URL
+            window.location.href = newUrl;
+
+            // Optionally, update text content with translations for the selected language
+            const welcomeElement = document.getElementById('welcome');
+            const contentElement = document.getElementById('content');
+
+            if (translations.hasOwnProperty(lang)) {
+                welcomeElement.textContent = translations[lang]['welcome'];
+                contentElement.textContent = translations[lang]['content'];
+            }
+        }
+    </script>
+</body>
 </html>
