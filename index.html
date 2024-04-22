@@ -14,9 +14,7 @@
     </nav>
     
     <h1>Willkommen</h1>
-    <p>Dies ist ein einfaches Beispiel für einen Sprachumschalter.</p>
-
-    <a href="test.html">Zur Testseite</a>
+    <p>Indesseite Deutsch</p>
     
     <script>
         function switchLanguage(lang) {
@@ -25,27 +23,37 @@
 
             // If the selected language is English
             if (lang === 'en') {
-                // Check if the current URL already contains the "/en/" subdirectory
+                // If the current page is already in English, keep the URL as is
                 if (currentUrl.includes("/en/")) {
-                    // English is already selected, so keep the URL as is
                     return;
-                } else {
-                    // Append "/en/" for English
-                    newUrl = currentUrl + "en/";
                 }
+                // If the current page is in German, add "/en/" to the URL
+                newUrl = addLanguageSubdirectory(currentUrl, 'en');
             } else if (lang === 'de') { // If the selected language is German
-                // Check if the current URL contains the "/en/" subdirectory
-                if (currentUrl.includes("/en/")) {
-                    // Replace "/en/" with "/" for German
-                    newUrl = currentUrl.replace("/en/", "/");
-                } else {
-                    // German is already selected, so keep the URL as is
+                // If the current page is already in German, keep the URL as is
+                if (!currentUrl.includes("/en/")) {
                     return;
                 }
+                // If the current page is in English, remove "/en/" from the URL
+                newUrl = removeLanguageSubdirectory(currentUrl);
             }
 
             // Redirect to the new URL
             window.location.href = newUrl;
+        }
+
+        function addLanguageSubdirectory(url, lang) {
+            // Add the language subdirectory to the URL
+            let baseUrl = url.substring(0, url.lastIndexOf('/') + 1);
+            let pageName = url.substring(url.lastIndexOf('/') + 1);
+            return baseUrl + lang + '/' + pageName;
+        }
+
+        function removeLanguageSubdirectory(url) {
+            // Remove the language subdirectory from the URL
+            let baseUrl = url.substring(0, url.indexOf('/en/') + 1);
+            let pageName = url.substring(url.indexOf('/en/') + 4);
+            return baseUrl + pageName;
         }
     </script>
 </body>
